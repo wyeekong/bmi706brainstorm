@@ -19,8 +19,7 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 
-# Load the dataset
-df = pd.read_csv('/mnt/data/pharma_trials.csv')
+
 
 # Streamlit app layout
 st.title('Pharmaceutical Trials Dashboard')
