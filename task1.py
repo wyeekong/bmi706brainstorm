@@ -36,6 +36,21 @@ with left_column:
     for _, row in country_rank.iterrows():
         st.write(f"{row['Country']}: {row['Trials']} trials")
 
+    # Heatmap of trials
+    st.subheader('Trials Heatmap')
+    # Aggregate data for heatmap
+    heatmap_data = df.groupby(['Country', 'Year'])['Trials'].sum().reset_index()
+    heatmap = alt.Chart(heatmap_data).mark_rect().encode(
+        x='Year:O',
+        y='Country:N',
+        color='Trials:Q',
+        tooltip=['Country', 'Year', 'Trials']
+    ).properties(
+        width=300,
+        height=300
+    )
+    st.altair_chart(heatmap, use_container_width=True)
+
 with center_column:
     # Geospatial Chart
     st.subheader('Geospatial Chart')
