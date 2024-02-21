@@ -37,7 +37,7 @@ left_column, center_column, right_column = st.columns([2, 10, 5])
 with left_column:
     # Country Ranking List
     st.subheader('Country Ranking List')
-    country_rank = df.groupby('Country')['Trials'].sum().reset_index().sort_values('Trials', ascending=False)
+    country_rank = df_filtered_by_phase.groupby('Country')['Trials'].sum().reset_index().sort_values('Trials', ascending=False)
     for _, row in country_rank.iterrows():
         st.write(f"{row['Country']}: {row['Trials']} trials")
 
@@ -60,7 +60,7 @@ with center_column:
       # Heatmap of trials
     st.subheader('Trials Heatmap')
     # Aggregate data for heatmap
-    heatmap_data = df.groupby(['Country', 'Year'])['Trials'].sum().reset_index()
+    heatmap_data = df_filtered_by_phase.groupby(['Country', 'Year'])['Trials'].sum().reset_index()
     heatmap = alt.Chart(heatmap_data).mark_rect().encode(
         x='Year:O',
         y='Country:N',
@@ -75,7 +75,7 @@ with center_column:
 with right_column:
     # Year Selector
     year = st.slider('Select Year', min_value=min(df['Year']), max_value=max(df['Year']), value=(min(df['Year']), max(df['Year'])))
-    df_filtered = df[df['Year'].between(year[0], year[1])]
+    df_filtered = df_filtered_by_phase[df_filtered_by_phase['Year'].between(year[0], year[1])]
 
     # Country Selector
     country = st.selectbox('Select Country', options=df['Country'].unique())
