@@ -36,20 +36,7 @@ with left_column:
     for _, row in country_rank.iterrows():
         st.write(f"{row['Country']}: {row['Trials']} trials")
 
-    # Heatmap of trials
-    st.subheader('Trials Heatmap')
-    # Aggregate data for heatmap
-    heatmap_data = df.groupby(['Country', 'Year'])['Trials'].sum().reset_index()
-    heatmap = alt.Chart(heatmap_data).mark_rect().encode(
-        x='Year:O',
-        y='Country:N',
-        color='Trials:Q',
-        tooltip=['Country', 'Year', 'Trials']
-    ).properties(
-        width=300,
-        height=300
-    )
-    st.altair_chart(heatmap, use_container_width=True)
+  
 
 with center_column:
     # Geospatial Chart
@@ -63,6 +50,22 @@ with center_column:
         get_radius='Trials * 50000',
     )
     st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox://styles/mapbox/light-v9'))
+
+
+      # Heatmap of trials
+    st.subheader('Trials Heatmap')
+    # Aggregate data for heatmap
+    heatmap_data = df.groupby(['Country', 'Year'])['Trials'].sum().reset_index()
+    heatmap = alt.Chart(heatmap_data).mark_rect().encode(
+        x='Year:O',
+        y='Country:N',
+        color='Trials:Q',
+        tooltip=['Country', 'Year', 'Trials']
+    ).properties(
+        width=300,
+        height=300
+    )
+    st.altair_chart(heatmap, use_container_width=True)
 
 with right_column:
     # Year Selector
