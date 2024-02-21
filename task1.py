@@ -27,7 +27,7 @@ df['Longitude'] = df['Country'].apply(lambda x: country_coords[x][1])
 st.title('Clinical Trials Dashboard')
 
 # Create columns for layout
-left_column, center_column, right_column = st.columns([2, 5, 3])
+left_column, center_column, right_column = st.columns([2, 10, 5])
 
 with left_column:
     # Country Ranking List
