@@ -42,6 +42,19 @@ selected_company = st.selectbox('Select Company', options=df['Company'].unique()
 df_filtered = df[df['Year'] == selected_year]
 company_trials = df_filtered.groupby('Company').size().reset_index(name='Trials')
 
+st.subheader(f'Total Trials by Company in {selected_year}')
+df_filtered = df[df['Year'] == selected_year]
+company_breakdown = df_filtered.groupby('Company').size().reset_index(name='Trials')
+
+company_breakdown_chart = alt.Chart(company_breakdown).mark_bar().encode(
+    x='Company:O',
+    y='Trials:Q',
+    color='Company:N',
+    tooltip=['Company', 'Trials']
+).properties(title=f'Total Trials by Company in {selected_year}')
+
+st.altair_chart(company_breakdown_chart, use_container_width=True)
+
 # Pie Chart showing total trials by company for the selected year
 pie_chart = alt.Chart(company_trials).mark_arc().encode(
     theta=alt.Theta(field="Trials", type="quantitative"),
