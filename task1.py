@@ -83,5 +83,8 @@ with right_column:
         y='Trials',
         color='Phase',
         tooltip=['Year', 'Phase', 'Trials']
+    ).properties(
+        width=300,
+        height=300
     ).interactive()
     st.altair_chart(line_chart, use_container_width=True)
