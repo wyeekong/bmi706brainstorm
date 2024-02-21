@@ -36,7 +36,7 @@ st.altair_chart(line_chart, use_container_width=True)
 
 # Interactive widgets to simulate click tool functionality
 selected_year = st.selectbox('Select Year', options=year_range)
-selected_company = st.selectbox('Select Company', options=df['Company'].unique())
+
 
 # Filtering data based on selections
 df_filtered = df[df['Year'] == selected_year]
