@@ -12,9 +12,6 @@ phases = np.random.choice(['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4'], size=100
 # Create DataFrame
 df = pd.DataFrame({'Year': years, 'Company': companies, 'Phase': phases})
 
-
-python
-Copy code
 import streamlit as st
 import altair as alt
 import pandas as pd
