@@ -28,6 +28,9 @@ st.set_page_config(layout="wide")
 # Streamlit app layout
 st.title('Antiseizure Clinical Trials Dashboard')
 
+selected_phases = st.multiselect('Select Phase(s)', options=df['Phase'].unique(), default=df['Phase'].unique())
+df_filtered_by_phase = df[df['Phase'].isin(selected_phases)]
+
 # Create columns for layout
 left_column, center_column, right_column = st.columns([2, 10, 5])
 
