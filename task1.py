@@ -26,7 +26,7 @@ df['Longitude'] = df['Country'].apply(lambda x: country_coords[x][1])
 st.set_page_config(layout="wide")
 
 # Streamlit app layout
-st.title('Clinical Trials Dashboard')
+st.title('Antiseizure Clinical Trials Dashboard')
 
 # Create columns for layout
 left_column, center_column, right_column = st.columns([2, 10, 5])
