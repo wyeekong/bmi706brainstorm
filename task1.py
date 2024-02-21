@@ -4,7 +4,7 @@ import pydeck as pdk
 import altair as alt
 
 # Load the dataset
-https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/clinical_trials_sample_dataset.csv
+url='https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/clinical_trials_sample_dataset.csv'
 df = pd.read_csv(url)
 country_coords = {
     'USA': (37.0902, -95.7129),
