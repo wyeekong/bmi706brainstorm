@@ -23,6 +23,8 @@ country_coords = {
 df['Latitude'] = df['Country'].apply(lambda x: country_coords[x][0])
 df['Longitude'] = df['Country'].apply(lambda x: country_coords[x][1])
 
+st.set_page_config(layout="wide")
+
 # Streamlit app layout
 st.title('Clinical Trials Dashboard')
 
@@ -84,7 +86,7 @@ with right_column:
         color='Phase',
         tooltip=['Year', 'Phase', 'Trials']
     ).properties(
-        width=300,
+        width=500,
         height=300
     ).interactive()
     st.altair_chart(line_chart, use_container_width=True)
