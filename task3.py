@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import pydeck as pdk
-!pip install vega_datasets
 from vega_datasets import data
 
 # Load the dataset
