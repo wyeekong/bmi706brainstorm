@@ -158,6 +158,7 @@ if selected_theme == "Country":
         st.altair_chart(line_chart, use_container_width=True)
 
         #pie_chart for funding source
+        st.subheader(f'Total trials over years by top 10 funding source')
         pharma_selection = alt.selection_single(fields=['source'],bind='legend',on='click',empty="all",clear='dblclick')
         funding=pharma2_filtered_by_phase.groupby(['source']).size().reset_index(name='count')
         funding_sorted = funding.sort_values(by='count', ascending=False)
@@ -168,7 +169,7 @@ if selected_theme == "Country":
             tooltip=['source', 'count']
         ).add_selection(
             pharma_selection
-        ).properties(title=f'Total trials over years by top 10 funding source')
+        )
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
         
