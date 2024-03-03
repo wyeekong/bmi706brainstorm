@@ -143,6 +143,7 @@ if selected_theme == "Country":
         st.altair_chart(line_chart, use_container_width=True)
 
         #pie_chart for funding source
+        pharma_selection = alt.selection_single(fields=['source'],bind='legend',on='click',empty="all",clear='dblclick')
         funding=pharma2_filtered_by_phase.groupby(['source']).size().reset_index(name='count')
         funding_sorted = funding.sort_values(by='count', ascending=False)
         top_10_funding = funding_sorted.head(10)
@@ -152,7 +153,24 @@ if selected_theme == "Country":
             tooltip=['source', 'count']
         ).properties(title=f'Trials by funding source in {selected_year} and {selected_phases}')
 
-        st.altair_chart(pie_chart, use_container_width=True)
+        company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
+
+        # Filter the company_summary DataFrame based on the selection
+        filtered_company_summary = company_summary.transform_filter(
+            pharma_selection
+        )
+
+        # Create the line chart
+        line_chart = alt.Chart(filtered_company_summary).mark_line(point=True).encode(
+            x=alt.X('year:O', scale=alt.Scale(domain=list(year_range))),
+            y='count:Q',
+            color='source:N',
+            tooltip=['source', 'year', 'count']
+        ).interactive()
+
+        # Display the pie chart and line chart
+        combined_chart = pie_chart | line_chart
+        st.altair_chart(combined_chart, use_container_width=True)
  
 elif selected_theme == "Funding":
     # Display charts related to funding theme
