@@ -151,6 +151,8 @@ if selected_theme == "Country":
             theta=alt.Theta(field="count", type="quantitative"),
             color=alt.Color(field="source", type="nominal"),
             tooltip=['source', 'count']
+        ).add_selection(
+            pharma_selection
         ).properties(title=f'Trials by funding source in {selected_year} and {selected_phases}')
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
