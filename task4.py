@@ -144,7 +144,6 @@ if selected_theme == "Country":
 
         #pie_chart for funding source
         funding=pharma2_filtered_by_phase.groupby(['source']).size().reset_index(name='count')
-        funding['year'] = funding['year'].astype(int)
         pie_chart = alt.Chart(funding).mark_arc().encode(
             theta=alt.Theta(field="count", type="quantitative"),
             color=alt.Color(field="source", type="nominal"),
