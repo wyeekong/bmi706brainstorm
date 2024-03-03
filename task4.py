@@ -16,6 +16,23 @@ merged_df = merged_df.dropna()
 merged_df['year'] = merged_df['year'].astype(int)
 merged_pharma = pd.merge(pharma, country_df[['Country', 'country-code']], left_on='Study population', right_on='Country', how='left')
 
+custom_css = """
+<style>
+body {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.custom-text {
+    font-weight: bold;
+}
+
+</style>
+"""
+
+# Apply the custom CSS to change the theme to dark
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Set page configuration
 st.set_page_config(layout="wide")
