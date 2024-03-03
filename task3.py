@@ -14,6 +14,10 @@ merged_df = pd.merge(df, country_df[['Country', 'country-code']], left_on='Study
 merged_df = merged_df.dropna()
 merged_df['year'] = merged_df['year'].astype(int)
 
+#this dataframe contain pharma and country of origin
+pharma=pd.read_csv('https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/pharma_country.csv', encoding='latin1')
+merged_pharma= pd.merge(pharma, country_df[['Country', 'country-code']], left_on='Study population',right_on='Country', how='left')
+
 st.set_page_config(layout="wide")
 
 # Streamlit app layout
@@ -57,6 +61,7 @@ with right_column:
     ).project(project)
     
     aggregated_data = df_filtered_by_phase.groupby(['Study population','country-code'])['totaltrials'].sum().reset_index()
+    pharma_total = merged_pharma.groupby(['Study population', 'country-code']).size().reset_index(name='count')
 
     selector = alt.selection_single(fields=['Study population'], on='click', empty="all", clear='dblclick')
 
@@ -84,9 +89,32 @@ with right_column:
         title=f'Trials by county'
     )
 
-    chart2 = alt.vconcat(background + chart_rate
+    pharma_chart_base = alt.Chart(source
+    ).properties(
+        width=width,
+        height=height
+    ).project(project
+    ).add_selection(selector
+    ).transform_lookup(
+        lookup="id",
+        from_=alt.LookupData(pharma_total, "country-code", ["Study population","count"]),
+    )
+
+    pharma_trials_sum = pharma_total['count'].max()
+    pharma_rate_scale = alt.Scale(domain=[0, pharma_trials_sum], scheme='yellowgreenblue')
+    pharma_rate_color = alt.Color(field="count", type="quantitative", scale=pharma_rate_scale)
+
+    pharma_chart_rate = pharma_chart_base.mark_geoshape().encode(
+        color=pharma_rate_color,
+        tooltip=['Study population:N','count:Q']
+    ).transform_filter(selector
+    ).properties(
+        title=f'Trials by county'
+    )
+
+    chart2 = alt.vconcat(background + chart_rate, background + pharma_chart_rate
     ).resolve_scale(
-    color='independent'
+        color='independent'
     )
 
     st.altair_chart(chart2)
