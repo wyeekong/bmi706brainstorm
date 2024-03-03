@@ -166,7 +166,7 @@ if selected_theme == "Country":
         funding=pharma2_filtered_by_phase.groupby(['source']).size().reset_index(name='count')
         funding_sorted = funding.sort_values(by='count', ascending=False)
         top_10_funding = funding_sorted.head(10)
-        pie_chart = alt.Chart(top_10_funding).mark_arc(stroke="transparent", strokeWidth=0).encode(
+        pie_chart = alt.Chart(top_10_funding).mark_arc().encode(
             theta=alt.Theta(field="count", type="quantitative"),
             color=alt.Color(field="source", type="nominal"),
             tooltip=['source', 'count']
