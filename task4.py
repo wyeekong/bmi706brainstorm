@@ -153,9 +153,10 @@ if selected_theme == "Country":
         ).properties(
             width=500,
             height=500
-        ).configure.axis(
+        ).configure_axis(
             gridOpacity=0
         )
+
 
         st.altair_chart(line_chart, use_container_width=True)
 
