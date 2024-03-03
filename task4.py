@@ -185,9 +185,6 @@ if selected_theme == "Country":
         ).transform_filter(
             pharma_selection
         ).interactive().configure_axis(
-            grid=False,
-            domain=False,
-            ticks=False,
             axisColor='transparent'
         )
 
