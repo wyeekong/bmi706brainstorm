@@ -45,7 +45,7 @@ if selected_theme == "Country":
                 .custom-text {
                     font-family: "Times New Roman", Times, serif;
                     font-weight: bold;
-                    color: white;
+                    color: black;
                 }
             </style>
         """
