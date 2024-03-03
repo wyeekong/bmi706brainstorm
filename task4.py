@@ -152,7 +152,7 @@ if selected_theme == "Country":
             tooltip=['year', 'phase', 'totaltrials']
         ).properties(
             width=500,
-            height=600
+            height=500
         )#.interactive()
 
         st.altair_chart(line_chart, use_container_width=True)
@@ -169,6 +169,8 @@ if selected_theme == "Country":
             tooltip=['source', 'count']
         ).add_selection(
             pharma_selection
+        ).properties(
+            height=500
         )
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
