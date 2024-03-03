@@ -27,7 +27,7 @@ selected_year = st.sidebar.slider('Select Year', min_value=min(merged_df['year']
 selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['phase'].unique(), default=merged_df['phase'].unique())
 
 # Filter data based on selected year and phase
-df_filtered = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
+df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
 
 if selected_theme == "Country":
     # Display charts related to country theme
@@ -35,23 +35,7 @@ if selected_theme == "Country":
     
     # Add your country-related charts here
     st.write("Charts related to Country theme")
-    
-    # Add a common selector for selecting a country
-    selected_country = st.sidebar.selectbox('Select Country', options=df_filtered['Study population'].unique())
-    df_country = df_filtered[df_filtered['Study population'] == selected_country]
-    
-    # Display charts related to the selected country
-    st.subheader(f'Trials Over Years for {selected_country}')
-    line_chart = alt.Chart(df_country).mark_line(point=True).encode(
-        x='year',
-        y='totaltrials',
-        color='phase',
-        tooltip=['year', 'phase', 'totaltrials']
-    ).properties(
-        width=500,
-        height=300
-    ).interactive()
-    st.altair_chart(line_chart, use_container_width=True)
+      
 
 elif selected_theme == "Funding":
     # Display charts related to funding theme
