@@ -52,7 +52,7 @@ if selected_theme == "Country":
         st.markdown(custom_css, unsafe_allow_html=True)
         country_rank = df_filtered_by_phase.groupby('Study population')['totaltrials'].sum().reset_index().sort_values('totaltrials', ascending=False)
         for _, row in country_rank.iterrows():
-            total_trials = int(round(row['totaltrials']))
+            total_trials = int(row['totaltrials'])
             st.markdown(f'<p class="custom-text">{row["Study population"]}: {row["totaltrials"]}</p>', unsafe_allow_html=True)
 
     with right_column:
