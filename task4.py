@@ -156,11 +156,11 @@ if selected_theme == "Country":
         ).properties(title=f'Trials by funding source in {selected_year} and {selected_phases}')
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
-        year_range = company_summary['year'].unique()
+        
         
         # Create the line chart with filtered data based on the selection
         line_chart = alt.Chart(company_summary).mark_line(point=True).encode(
-            x=alt.X('year:O', scale=alt.Scale(domain=list(year_range))),
+            x=alt.X('year:O'),
             y='count:Q',
             color='source:N',
             tooltip=['source', 'year', 'count']
