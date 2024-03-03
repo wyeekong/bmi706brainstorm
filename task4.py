@@ -30,15 +30,10 @@ selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['p
 
 # Filter data based on selected year and phase
 df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
-st.write(df_filtered_by_phase)
+
 left_column, right_column = st.columns([2, 15])
 
 if selected_theme == "Country":
-    # Display charts related to country theme
-    st.subheader('Country Theme')
-    
-    # Add your country-related charts here
-    st.write("Charts related to Country theme")
     with left_column:
     # Country Ranking List
         st.subheader('Country Ranking List')
