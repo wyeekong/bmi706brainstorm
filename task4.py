@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
-git clone https://github.com/vega/vega-datasets.git
+!git clone https://github.com/vega/vega-datasets.git
 cd vega-datasets
 pip install .
 import vega_datasets
