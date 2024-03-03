@@ -53,7 +53,7 @@ if selected_theme == "Country":
         country_rank = df_filtered_by_phase.groupby('Study population')['totaltrials'].sum().reset_index().sort_values('totaltrials', ascending=False)
         for _, row in country_rank.iterrows():
             total_trials = int(row['totaltrials'])
-            st.markdown(f'<p class="custom-text">{row["Study population"]}: {row["total_trials"]}</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="custom-text">{row["Study population"]}: {total_trials}</p>', unsafe_allow_html=True)
 
     with right_column:
     # Geospatial Chart
