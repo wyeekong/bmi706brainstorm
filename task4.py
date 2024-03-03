@@ -35,7 +35,7 @@ body {
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # Set page configuration
-st.set_page_config(layout="wide")
+
 
 # Streamlit app layout
 st.title('Clinical Trials Dashboard')
