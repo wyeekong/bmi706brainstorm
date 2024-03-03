@@ -46,8 +46,8 @@ with right_column:
     st.subheader('Geospatial Chart')
     # Vega_datasets world data
     source = alt.topo_feature(data.world_110m.url, 'countries')
-    width = 1600
-    height  = 800
+    width = 1000
+    height  = 500
     project = 'equirectangular'
 
     # a gray map using as the visualization background
@@ -109,7 +109,7 @@ with right_column:
         tooltip=['Study population:N','count:Q']
     ).transform_filter(selector
     ).properties(
-        title=f'Trials by county'
+        title=f'Pharma count by county'
     )
 
     chart2 = alt.vconcat(background + chart_rate, background + pharma_chart_rate
@@ -133,7 +133,7 @@ with right_column:
         color='phase',
         tooltip=['year', 'phase', 'totaltrials']
     ).properties(
-        width=800,
+        width=500,
         height=600
     )#.interactive()
 
