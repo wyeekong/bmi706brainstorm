@@ -155,11 +155,6 @@ if selected_theme == "Country":
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
 
-        # Filter the company_summary DataFrame based on the selection
-        filtered_company_summary = company_summary.transform_filter(
-            pharma_selection
-        )
-
         # Create the line chart with filtered data based on the selection
         line_chart = alt.Chart(company_summary).mark_line(point=True).encode(
             x=alt.X('year:O', scale=alt.Scale(domain=list(year_range))),
