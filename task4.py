@@ -18,6 +18,7 @@ merged_pharma = pd.merge(pharma, country_df[['Country', 'country-code']], left_o
 
 
 # Set page configuration
+st.set_theme('dark')
 st.set_page_config(layout="wide")
 
 # Streamlit app layout
@@ -40,9 +41,19 @@ if selected_theme == "Country":
     with left_column:
     # Country Ranking List
         st.subheader('Country Ranking List')
+        custom_css = """
+            <style>
+                .custom-text {
+                    font-family: "Times New Roman", Times, serif;
+                    font-weight: bold;
+                    color: white;
+                }
+            </style>
+        """
+        st.markdown(custom_css, unsafe_allow_html=True)
         country_rank = df_filtered_by_phase.groupby('Study population')['totaltrials'].sum().reset_index().sort_values('totaltrials', ascending=False)
         for _, row in country_rank.iterrows():
-            st.write(f"{row['Study population']}: {row['totaltrials']}")
+            st.markdown(f'<p class="custom-text">{row["Study population"]}: {row["totaltrials"]}</p>', unsafe_allow_html=True)
 
     with right_column:
     # Geospatial Chart
