@@ -184,9 +184,9 @@ if selected_theme == "Country":
             tooltip=['source', 'year', 'count']
         ).transform_filter(
             pharma_selection
-        ).interactive().configure_axis(
+        ).configure_axis(
             gridOpacity=0
-        )
+        ).interactive()
 
         # Display the combined chart
         combined_chart = pie_chart | line_chart
