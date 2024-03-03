@@ -184,8 +184,6 @@ if selected_theme == "Country":
             tooltip=['source', 'year', 'count']
         ).transform_filter(
             pharma_selection
-        ).configure_axis(
-            gridOpacity=0
         ).interactive()
 
         # Display the combined chart
