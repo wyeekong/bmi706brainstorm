@@ -7,7 +7,8 @@ import plotly.graph_objects as go
 st.title('Seizure Type Comparison Across Age Groups')
 
 # Load the dataset from the specified path
-data = pd.read_csv('/Users/mattliebers/Downloads/bmi706/minus_OLE_with_generalized_indications_age_groups.csv')
+data=pd.read_csv('https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/minus_OLE_with_generalized_indications_age_groups.csv')
+
 
 # Filter for the specified seizure types
 seizure_types_of_interest = ['Focal/Partial', 'Generalized', 'Epilepsy/Seizures/Status']
