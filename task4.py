@@ -34,7 +34,7 @@ selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['p
 df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
 pharma2_filtered_by_phase= pharma2[(pharma2['year'].between(selected_year[0], selected_year[1])) & (pharma2['phase'].isin(selected_phases))]
 
-left_column, right_column = st.columns([2, 15])
+left_column, right_column = st.columns([5, 10])
 
 if selected_theme == "Country":
     with left_column:
@@ -52,6 +52,7 @@ if selected_theme == "Country":
         st.markdown(custom_css, unsafe_allow_html=True)
         country_rank = df_filtered_by_phase.groupby('Study population')['totaltrials'].sum().reset_index().sort_values('totaltrials', ascending=False)
         for _, row in country_rank.iterrows():
+            total_trials = int(round(row['totaltrials']))
             st.markdown(f'<p class="custom-text">{row["Study population"]}: {row["totaltrials"]}</p>', unsafe_allow_html=True)
 
     with right_column:
