@@ -16,7 +16,7 @@ merged_df = merged_df.dropna()
 merged_df['year'] = merged_df['year'].astype(int)
 merged_pharma = pd.merge(pharma, country_df[['Country', 'country-code']], left_on='Study population', right_on='Country', how='left')
 
-st.markdown(custom_css, unsafe_allow_html=True)
+
 st.set_page_config(layout="wide")
 # Streamlit app layout
 st.title('Clinical Trials Dashboard')
