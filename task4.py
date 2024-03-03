@@ -128,9 +128,9 @@ if selected_theme == "Country":
         # Line and Dot Graph for the selected country
         st.subheader(f'Trials Over Years for {country}')
         line_chart = alt.Chart(df_country).mark_line(point=True).encode(
-            x='year',
-            y='totaltrials',
-            color='phase',
+            x='year:O',
+            y='totaltrials:Q',
+            color='phase:O',
             tooltip=['year', 'phase', 'totaltrials']
         ).properties(
             width=500,
