@@ -28,7 +28,7 @@ selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['p
 
 # Filter data based on selected year and phase
 df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
-
+st.write(df_filtered_by_phase)
 left_column, right_column = st.columns([2, 15])
 
 if selected_theme == "Country":
@@ -142,11 +142,6 @@ if selected_theme == "Country":
 
         st.altair_chart(line_chart, use_container_width=True)
  
-
-  
-
-
-
 elif selected_theme == "Funding":
     # Display charts related to funding theme
     st.subheader('Funding Theme')
