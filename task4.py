@@ -8,12 +8,14 @@ country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022
 df = pd.read_csv('https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/country.csv')
 df['totaltrials'] = df.groupby(['Study population', 'year', 'phase'])['Study population'].transform('count')
 pharma = pd.read_csv('https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/pharma_country.csv', encoding='latin1')
+pharma2=pd.read_csv('https://raw.githubusercontent.com/wyeekong/bmi706brainstorm/main/minus%20OLE%20(deleted%204).csv')
 
 # Merge datasets
 merged_df = pd.merge(df, country_df[['Country', 'country-code']], left_on='Study population', right_on='Country', how='left').dropna()
 merged_df = merged_df.dropna()
 merged_df['year'] = merged_df['year'].astype(int)
 merged_pharma = pd.merge(pharma, country_df[['Country', 'country-code']], left_on='Study population', right_on='Country', how='left')
+
 
 # Set page configuration
 st.set_page_config(layout="wide")
@@ -30,6 +32,7 @@ selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['p
 
 # Filter data based on selected year and phase
 df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
+pharma2_filtered_by_phase= pharma2[(pharma2['year'].between(selected_year[0], selected_year[1])) & (pharma2['phase'].isin(selected_phases))]
 
 left_column, right_column = st.columns([2, 15])
 
@@ -138,6 +141,17 @@ if selected_theme == "Country":
         )#.interactive()
 
         st.altair_chart(line_chart, use_container_width=True)
+
+        #pie_chart for funding source
+        funding=pharma2_filtered_by_phase.groupby(['source']).size().reset_index(name='count')
+        funding['year'] = funding['year'].astype(int)
+        pie_chart = alt.Chart(funding).mark_arc().encode(
+            theta=alt.Theta(field="count", type="quantitative"),
+            color=alt.Color(field="source", type="nominal"),
+            tooltip=['source', 'count']
+        ).properties(title=f'Trials by funding source in {selected_year} and {selected_phases}')
+
+        st.altair_chart(pie_chart, use_container_width=True)
  
 elif selected_theme == "Funding":
     # Display charts related to funding theme
