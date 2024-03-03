@@ -160,15 +160,17 @@ if selected_theme == "Country":
             pharma_selection
         )
 
-        # Create the line chart
-        line_chart = alt.Chart(filtered_company_summary).mark_line(point=True).encode(
+        # Create the line chart with filtered data based on the selection
+        line_chart = alt.Chart(company_summary).mark_line(point=True).encode(
             x=alt.X('year:O', scale=alt.Scale(domain=list(year_range))),
             y='count:Q',
             color='source:N',
             tooltip=['source', 'year', 'count']
+        ).transform_filter(
+            pharma_selection
         ).interactive()
 
-        # Display the pie chart and line chart
+        # Display the combined chart
         combined_chart = pie_chart | line_chart
         st.altair_chart(combined_chart, use_container_width=True)
  
