@@ -18,7 +18,6 @@ merged_pharma = pd.merge(pharma, country_df[['Country', 'country-code']], left_o
 
 
 # Set page configuration
-st.set_theme('green')
 st.set_page_config(layout="wide")
 
 # Streamlit app layout
