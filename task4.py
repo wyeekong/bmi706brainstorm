@@ -97,10 +97,13 @@ if selected_theme == "Country":
 
         chart_rate = chart_base.mark_geoshape().encode(
             color=rate_color,
-            tooltip=['Study population:N','totaltrials:Q']
+            tooltip=[
+                alt.Tooltip('Study population:N', title='Country'),
+                alt.Tooltip('totaltrials:Q')
+            ]
         ).transform_filter(selector
         ).properties(
-            title=f'Trials by county'
+            title=f'Trials count by country'
         )
 
         pharma_chart_base = alt.Chart(source
@@ -120,10 +123,13 @@ if selected_theme == "Country":
 
         pharma_chart_rate = pharma_chart_base.mark_geoshape().encode(
             color=pharma_rate_color,
-            tooltip=['Study population:N','count:Q']
+            tooltip=[
+                alt.Tooltip('Study population:N', title='Country'),
+                alt.Tooltip('count:Q', title='Number of funding')
+            ]
         ).transform_filter(selector
         ).properties(
-            title=f'Pharma count by county'
+            title=f'Funding count by country'
         )
 
         chart2 = alt.vconcat(background + chart_rate, background + pharma_chart_rate
@@ -143,7 +149,7 @@ if selected_theme == "Country":
         st.subheader(f'Trials Over Years for {country}')
         line_chart = alt.Chart(df_country).mark_line(point=True).encode(
             x='year:O',
-            y='totaltrials:Q',
+            y=alt.Y('totaltrials:Q',axis=alt.Axis(title='Count')),
             color='phase:O',
             tooltip=['year', 'phase', 'totaltrials']
         ).properties(
@@ -164,11 +170,9 @@ if selected_theme == "Country":
             tooltip=['source', 'count']
         ).add_selection(
             pharma_selection
-        ).properties(title=f'Trials by funding source in {selected_year} and {selected_phases}')
+        ).properties(title=f'Total trials over years by top 10 funding source')
 
         company_summary = pharma2_filtered_by_phase.groupby(['source', 'year']).size().reset_index(name='count')
-        #company_sorted = company_summary.sort_values(by='count', ascending=False)
-        #top_10_company = company_sorted.head(10)
         
         # Create the line chart with filtered data based on the selection
         line_chart = alt.Chart(company_summary).mark_line(point=True).encode(
