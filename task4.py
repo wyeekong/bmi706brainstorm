@@ -29,26 +29,22 @@ selected_phases = st.sidebar.multiselect('Select Phase(s)', options=merged_df['p
 # Filter data based on selected year and phase
 df_filtered_by_phase = merged_df[(merged_df['year'].between(selected_year[0], selected_year[1])) & (merged_df['phase'].isin(selected_phases))]
 
+left_column, right_column = st.columns([2, 15])
+
 if selected_theme == "Country":
     # Display charts related to country theme
     st.subheader('Country Theme')
     
     # Add your country-related charts here
     st.write("Charts related to Country theme")
-
-       # Create columns for layout
-left_column, right_column = st.columns([2, 15])
-
-with left_column:
+    with left_column:
     # Country Ranking List
     st.subheader('Country Ranking List')
     country_rank = df_filtered_by_phase.groupby('Study population')['totaltrials'].sum().reset_index().sort_values('totaltrials', ascending=False)
     for _, row in country_rank.iterrows():
         st.write(f"{row['Study population']}: {row['totaltrials']}")
 
-  
-
-with right_column:
+    with right_column:
     # Geospatial Chart
     st.subheader('Geospatial Chart')
     # Vega_datasets world data
@@ -144,7 +140,12 @@ with right_column:
         height=600
     )#.interactive()
 
-    st.altair_chart(line_chart, use_container_width=True)  
+    st.altair_chart(line_chart, use_container_width=True)
+ 
+
+  
+
+
 
 elif selected_theme == "Funding":
     # Display charts related to funding theme
