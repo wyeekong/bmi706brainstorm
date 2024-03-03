@@ -185,7 +185,7 @@ if selected_theme == "Country":
         ).transform_filter(
             pharma_selection
         ).interactive().configure_axis(
-            axisColor='transparent'
+            gridOpacity=0
         )
 
         # Display the combined chart
